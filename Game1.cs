@@ -18,13 +18,34 @@ namespace GameProject6
 
         public Player _player;
 
+        /// <summary>
+        /// Enemeies in the game
+        /// </summary>
         private List<Enemy> _enemies;
 
+        /// <summary>
+        /// Game Background
+        /// </summary>
         private Background _background;
 
+        /// <summary>
+        /// The game world
+        /// </summary>
         private World world;
 
+        /// <summary>
+        /// Player Health information 
+        /// </summary>
 
+        private int maxHealth = 10;
+        private int currentHealth;
+
+
+        private Texture2D heartTexture;
+        public Texture2D[] hearts;
+
+        private Texture2D fullHeart;
+        private Texture2D emptyHeart;
 
         MouseState _priorMouse;
 
@@ -41,15 +62,13 @@ namespace GameProject6
             graphics.PreferredBackBufferHeight = Constants.GAME_HEIGHT;
 
             graphics.ApplyChanges();
+
+            
         }
 
         protected override void Initialize()
         {
             System.Random rand = new System.Random();
-
-
-
-
             //World Creation
             world = new World();
             world.Gravity = Vector2.Zero;
@@ -76,24 +95,17 @@ namespace GameProject6
             System.Random random = new System.Random();
             _enemies = new List<Enemy>();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++) // Creates 5 enemies
             {
                 var radius = random.Next(1, 2);
                 var position = new Vector2(
-                    random.Next(radius, Constants.GAME_WIDTH - radius),
-                    random.Next(radius, Constants.GAME_HEIGHT - radius)
+                    random.Next(radius, Constants.GAME_MAX_WIDTH- radius),
+                    random.Next(radius, Constants.GAME_MAX_HEIGHT - radius)
                     );
 
                 //Adding rigid body
                 var body = world.CreateCircle(radius, 1, position, BodyType.Dynamic);
 
-                body.LinearVelocity = new Vector2(
-                    random.Next(-20, 20),
-                    random.Next(-20, 20)
-                    );
-
-                body.SetRestitution(1);
-                body.AngularVelocity = (float)random.NextDouble() * MathHelper.Pi - MathHelper.PiOver2;
                 _enemies.Add(new Enemy(Content.Load<Texture2D>("ghost"), position, 150 ,radius, body));
             }
 
@@ -104,15 +116,22 @@ namespace GameProject6
 
             _background = new Background();
 
+
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            Rectangle heartFull = new Rectangle(0,0, 48, 48);
+            Rectangle heartEmpty = new Rectangle(0, 48, 48, 48);
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _player.LoadContent(Content);
             _background.LoadContent(Content);
+
+            heartTexture = Content.Load<Texture2D>("health");
         }
 
         protected override void Update(GameTime gameTime)
@@ -124,14 +143,32 @@ namespace GameProject6
             Vector2 mousePosition = new Vector2(currentMouse.X, currentMouse.Y);
 
             _player.Update(gameTime);
+
+
+            //foreach (var ghost in _enemies) ghost.Update(gameTime, _player);
+
             _background.Update(gameTime, _player, _enemies);
 
-            foreach (var ghost in _enemies) ghost.Update(gameTime, _player);
+            //Update hearts
+ //           foreach (var heart in hearts)
 
-
+            ///Attacking mechanics, needs work to be succesfful
+            //Switsh Effect, may implement as its own class
+            //
             if (currentMouse.LeftButton == ButtonState.Pressed && _priorMouse.LeftButton == ButtonState.Released)
             {
-                //attack the rats
+                Vector2 currClick = new Vector2(currentMouse.X, currentMouse.Y);
+                if(currClick.X - _player.Position.X > 0)
+                {
+
+                }else if (currClick.Y - _player.Position.Y > 0)
+                {
+
+                }
+                else
+                {
+
+                }
 
             }
 

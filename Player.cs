@@ -20,10 +20,10 @@ namespace GameProject6
         Right = 1,
         Down = 2,
         Left = 3,
-        PunchUp = 4,
-        PunchRight = 5,
-        PunchDown = 6,
-        PunchLeft = 7, 
+        HitUp = 4,
+        HitRight = 5,
+        HitDown = 6,
+        HitLeft = 7, 
         Dead = 14,
     
     }
@@ -31,7 +31,10 @@ namespace GameProject6
 
     public class Player
     {       
-        private KeyboardState keyboardState;
+  
+        /// <summary>
+        /// Texture of player
+        /// </summary>
         private Texture2D texture;
 
         /// <summary>
@@ -135,6 +138,15 @@ namespace GameProject6
                 Position.X -= 1;
             }
 
+            if ((keyboardState.IsKeyDown(Keys.Space) || keyboardState.IsKeyDown(Keys.Space)) && (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W)))
+            {
+                Position.Y -= 1;
+            }
+            if ((keyboardState.IsKeyDown(Keys.Space) || keyboardState.IsKeyDown(Keys.Space)) && (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S)))
+            {
+                Position.Y += 1;
+            }
+
         }
 
 
@@ -165,7 +177,7 @@ namespace GameProject6
           
             if (!pressing)
             {
-                source = new Rectangle(0, 2*16, 16, 16);
+                source = new Rectangle(animationFrame * 16, 32, 16, 16);
                 spriteBatch.Draw(texture, Position, source, Color.White, 0f, new Vector2(16, 16), 1.5f, SpriteEffects.None, 0);
             }
             else

@@ -16,18 +16,12 @@ namespace GameProject6
         //Tile stuff
         private Tilemap _tilemap;
         private Tilemap _tilemapProps;
+        private Tilemap _tileWater;
 
         //Sprites
         private List<Enemy> _enemies;
         private Player _player;
 
-        // The position of the sprite
-        private Vector2 _position;
-
-        /// <summary>
-        /// The current position
-        /// </summary>
-        public Vector2 Position => _position;
 
 
 
@@ -39,8 +33,11 @@ namespace GameProject6
         {
             _tilemap = new Tilemap("map.txt");
             _tilemapProps = new Tilemap("propMap.txt");
+            _tileWater = new Tilemap("waterMap.txt");
+
             _tilemap.LoadContent(content);
             _tilemapProps.LoadContent(content);
+            _tileWater.LoadContent(content);
         }
 
         /// <summary>
@@ -50,15 +47,17 @@ namespace GameProject6
         public void Update(GameTime gameTime, Player player, List<Enemy> enemies)
         {
             _player = player;
-            foreach(var enemy in enemies ) enemy.Update(gameTime, _player);
+            _enemies = enemies;
+            foreach (var enemy in enemies) enemy.Update(gameTime, _player);
         }
 
         /// <summary>
         /// Draws the sprites in the order sky-> gorund + player -> grass
         /// </summary>
         /// <param name="gameTime">An object representing time in the game</param>
-        /// <param name="spriteBatch">The SpriteBatch to draw the player with</param>
+        /// <param name="spriteBatch">The SpriteBatch /param>
         /// <param name="player">Player in the world</param>
+        /// <param name="enemies">Enemies in the world</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Player player, List<Enemy> enemies)
         {
             float playerX = MathHelper.Clamp(player.Position.X, 300, Constants.GAME_MAX_WIDTH - 600);
@@ -75,6 +74,7 @@ namespace GameProject6
             spriteBatch.Begin(transformMatrix: transform);
             
             _tilemap.Draw(gameTime, spriteBatch);
+            _tileWater.Draw(gameTime, spriteBatch);
             player.Draw(gameTime, spriteBatch);
             _tilemapProps.Draw(gameTime, spriteBatch);
 
