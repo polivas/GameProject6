@@ -1,0 +1,11 @@
+﻿
+
+Content/cloakandleather.png  - created by CLUNARSIGNALS of OpenGameArt.org (https://opengameart.org/content/overhead-action-rpg-hero-2) and licensed under CC-BY-SA 3.0(http://creativecommons.org/licenses/by-sa/3.0/)
+
+Content/swoosh.png  - created by Buch of OpenGameArt.org (https://opengameart.org/content/a-platformer-in-the-forest) and licensed under CC0 (https://creativecommons.org/publicdomain/zero/1.0/)
+
+Content/ghost.png  - created by ansimuz of OpenGameArt.org (https://opengameart.org/content/chibi-monsters-set-01) and licensed under CC-BY 3.0 (https://creativecommons.org/licenses/by/3.0/)
+
+Content/health.png  - created by knik1985 of OpenGameArt.org (https://opengameart.org/content/health) and licensed under CC-BY 3.0 (https://creativecommons.org/licenses/by/3.0/)
+
+Content/sheet.png  - created by Buch of OpenGameArt.org (https://opengameart.org/content/outdoor-tiles-again) and licensed under CC-BY 3.0 (https://creativecommons.org/licenses/by/3.0/)
